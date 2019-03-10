@@ -3,6 +3,7 @@ import base64
 from datetime import datetime
 import os
 import shutil
+import cv2
 
 import numpy as np
 import socketio
@@ -20,6 +21,13 @@ sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
+
+def process_image(image_array):
+    # 80 x 320
+    crop_img = image_array[70:150, 0:320]
+    resized_img = cv2.resize(crop_img, (200, 66), interpolation=cv2.INTER_AREA)
+    yuv_img = cv2.cvtColor(resized_img, cv2.COLOR_BGR2YUV)
+    return yuv_img
 
 
 class SimplePIController:
@@ -61,7 +69,8 @@ def telemetry(sid, data):
         imgString = data["image"]
         image = Image.open(BytesIO(base64.b64decode(imgString)))
         image_array = np.asarray(image)
-        steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+        processed_img = process_image(image_array)
+        steering_angle = float(model.predict(processed_img[None, :, :, :], batch_size=1))
 
         throttle = controller.update(float(speed))
 

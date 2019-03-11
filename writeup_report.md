@@ -28,8 +28,6 @@ The goals / steps of this project are the following:
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to 
-
 My first step was to use the Nvidia convolution neural network model. I thought this model might be appropriate because Nvidia's setup and driving condition (e.g. 3 cameras) is similar to this project. 
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set with ratio 0.2 
@@ -45,10 +43,10 @@ To combat the overfitting, I tried to add dropout with different combinations:
 Although the overfitting situation improves after adding dropout, the autonomous test run with the trained model performs worse.  
 Thus, I decided to not add any dropout after all kinds of experiments.  
 
-I also tried with different batch size, e.g. 32, 64, 96, 128.  And it turns out that with 128 it can get lowest error.     
+I also tried with different batch size, e.g. 32, 64, 96, 128.  And it turns out that the model performs the best with with batch size 128.     
 
 The final step was to run the simulator to see how well the car was driving around track one.  There were 2 places with sharp curve where the vehicle might fell off the track. 
-Io improve the driving behavior in these cases, I recorded more data sets on sharp curves. (named more_data.zip)
+To improve the driving behavior in these cases, I recorded more data sets on sharp curves. (named more_data.zip)
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
@@ -82,8 +80,8 @@ Here is an example image of center lane driving.
 
 ![alt text][image2]
 
-* More Data Set: it is added later on by myself again to increase more scenarios of vehicle making turns on curvy roads.   
-Here is an example image of driving on the sharp curve. 
+* More Data Set: it is added later on by myself at later stage to add more scenarios of the vehicle making turns on curvy roads.   
+Here is an example image of driving on one of the sharp curves. 
 
 ![alt text][image3]
 
@@ -93,12 +91,14 @@ For example, here is an image that has then been flipped:
 ![alt text][image2]
 ![alt text][image4]
 
-After the collection process, I had 11323 number of data points. I then preprocessed this data by crop the image with upper 70 pixel and bottom 10 pixel
+After the collection process, I had 11323 number of data points. 
+
+I then preprocessed this data by crop the image with upper 70 pixel and bottom 10 pixel
 See an example image after the crop 
 
 ![alt text][image5]
 
-According to the Nvidia CNN model, I need to convert the color space from RGB to YUV
+According to the Nvidia CNN model, I converted the color space from RGB to YUV.
 See an example image after converting to YUV color space:
 
 ![alt text][image6]
@@ -117,7 +117,7 @@ See one example of the training and validation loss for each epoch
 
 After several times testing with autonomous mode using various trained model file, I found that the validation loss is not a great indication of how well it drives.  
 
-Sometimes, a trained model file with a higher loss (less epochs) has a better process in the test run.  
+Sometimes, a trained model file with a higher loss (less epochs) performs better in the autonomous run.  
 
 Thus I used ModelCheckpoint to save each best result while training.  And I used different saved model file to see which one drives the best.  
 

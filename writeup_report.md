@@ -23,52 +23,6 @@ The goals / steps of this project are the following:
 [image7]: ./examples/loss_history.png "Flipped Image"
 
 ---
-### Files Submitted & Code Quality
-
-#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
-
-My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup_report.md summarizing the results
-* run.mp4  recording the vehicle driving autonomously using model.h5  
-
-#### 2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
-```sh
-python drive.py model.h5
-```
-
-#### 3. Submission code is usable and readable
-
-The model.py file contains the code for training and saving the convolution neural network. 
-The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
-
-### Model Architecture and Training Strategy
-
-#### 1. An appropriate model architecture has been employed
-
-My model uses the Nvidia CNN mentioned in the lecture and also in the paper "End to End Learning for Self-Driving Cars" 
-
-See also the CNN structure here ![alt text][image1]
-
-
-#### 2. Attempts to reduce overfitting in the model
-
-The total data set is splitted by 0.2 for training and validation data set. 
-The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
-
-#### 3. Model parameter tuning
-
-The model used an adam optimizer, so the learning rate was not tuned manually (`get_nvidia_model()` in model.py).
-
-#### 4. Appropriate training data
-
-Training data consists of 3 data sets in total, prepared by calling script `get_data.sh`
-* Udacity Data Set: default one
-* Own Data Set: it is collected by myself driving on the road with both direction, and recovering from the left and right sides of the roads.
-* More Data Set: it is added later on by myself again to increase more scenarios of vehicle making turns on curvy roads.   
 
 ### Model Architecture and Training Strategy
 
